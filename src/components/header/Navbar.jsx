@@ -61,7 +61,6 @@ export default function Navbar() {
   
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [showNewProductDropdown, setShowNewProductDropdown] = useState(false);
-  const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
@@ -145,90 +144,16 @@ export default function Navbar() {
                 <button className="relative">
                   <HeartIcon className="w-6 h-6" />
                 </button>
-                <div 
-                  className="relative"
-                  onMouseEnter={() => setShowCartDropdown(true)}
-                  onMouseLeave={() => setShowCartDropdown(false)}
-                >
-                  <button 
-                    className="relative"
-                  >
+                <a href="/cart" className="relative">
+                  <div className="relative mt-1">
                     <CartIcon className="w-6 h-6" />
                     {cartCount > 0 && (
                       <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                         {cartCount}
                       </span>
                     )}
-                  </button>
-
-                  {/* Cart Dropdown */}
-                  {showCartDropdown && (
-                    <div className="absolute top-full right-0 mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-[500px] overflow-y-auto">
-                      {cartItems.length === 0 ? (
-                        <div className="p-8 text-center">
-                          <CartIcon className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                          <p className="text-gray-500 font-medium">Your cart is empty</p>
-                          <p className="text-sm text-gray-400 mt-2">Add items to get started</p>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="p-4 border-b border-gray-200">
-                            <h3 className="font-semibold text-gray-900">Shopping Cart ({cartCount} items)</h3>
-                          </div>
-                          <div className="divide-y divide-gray-100">
-                            {cartItems.map((item) => (
-                              <div key={item.id} className="p-4 hover:bg-gray-50">
-                                <div className="flex gap-3">
-                                  <img 
-                                    src={item.image} 
-                                    alt={item.name} 
-                                    className="w-16 h-16 object-cover rounded bg-gray-100"
-                                  />
-                                  <div className="flex-1 min-w-0">
-                                    <h4 className="text-sm font-medium text-gray-900 truncate">{item.name}</h4>
-                                    <p className="text-sm text-gray-500 mt-1">${item.price}</p>
-                                    <div className="flex items-center gap-2 mt-2">
-                                      <button
-                                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                        className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100"
-                                      >
-                                        -
-                                      </button>
-                                      <span className="text-sm font-medium w-8 text-center">{item.quantity}</span>
-                                      <button
-                                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                        className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100"
-                                      >
-                                        +
-                                      </button>
-                                      <button
-                                        onClick={() => removeFromCart(item.id)}
-                                        className="ml-auto text-red-500 hover:text-red-700 text-sm"
-                                      >
-                                        Remove
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="p-4 border-t border-gray-200 bg-gray-50">
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="font-semibold text-gray-900">Total:</span>
-                              <span className="font-bold text-lg text-gray-900">
-                                ${getCartTotal().toFixed(2)}
-                              </span>
-                            </div>
-                            <a href="/cart" className="block w-full bg-[#68D237] text-white py-2 rounded-lg font-medium hover:bg-green-600 transition text-center">
-                              View Cart
-                            </a>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
+                  </div>
+                </a>
               </div>
             </div>
 
@@ -255,87 +180,17 @@ export default function Navbar() {
               <button className="relative">
                 <HeartIcon className="w-5 h-5" />
               </button>
-              <div className="relative">
-                <button 
-                  className="relative"
-                  onClick={() => setShowCartDropdown(!showCartDropdown)}
-                >
+              <a href="/cart" className="relative">
+                <div className="relative mt-1">
                   <CartIcon className="w-5 h-5" />
                   {cartCount > 0 && (
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                       {cartCount}
                     </span>
                   )}
-                </button>
-                
-                {/* Mobile Cart Dropdown */}
-                {showCartDropdown && (
-                  <div className="absolute top-full right-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-[400px] overflow-y-auto">
-                    {cartItems.length === 0 ? (
-                      <div className="p-8 text-center">
-                        <CartIcon className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                        <p className="text-gray-500 font-medium">Your cart is empty</p>
-                        <p className="text-sm text-gray-400 mt-2">Add items to get started</p>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="p-4 border-b border-gray-200">
-                          <h3 className="font-semibold text-gray-900">Shopping Cart ({cartCount} items)</h3>
-                        </div>
-                        <div className="divide-y divide-gray-100">
-                          {cartItems.map((item) => (
-                            <div key={item.id} className="p-4 hover:bg-gray-50">
-                              <div className="flex gap-3">
-                                <img 
-                                  src={item.image} 
-                                  alt={item.name} 
-                                  className="w-16 h-16 object-cover rounded bg-gray-100"
-                                />
-                                <div className="flex-1 min-w-0">
-                                  <h4 className="text-sm font-medium text-gray-900 truncate">{item.name}</h4>
-                                  <p className="text-sm text-gray-500 mt-1">${item.price}</p>
-                                  <div className="flex items-center gap-2 mt-2">
-                                    <button
-                                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                      className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100"
-                                    >
-                                      -
-                                    </button>
-                                    <span className="text-sm font-medium w-8 text-center">{item.quantity}</span>
-                                    <button
-                                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                      className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100"
-                                    >
-                                      +
-                                    </button>
-                                    <button
-                                      onClick={() => removeFromCart(item.id)}
-                                      className="ml-auto text-red-500 hover:text-red-700 text-sm"
-                                    >
-                                      Remove
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="p-4 border-t border-gray-200 bg-gray-50">
-                          <div className="flex justify-between items-center mb-3">
-                            <span className="font-semibold text-gray-900">Total:</span>
-                            <span className="font-bold text-lg text-gray-900">
-                              ${getCartTotal().toFixed(2)}
-                            </span>
-                          </div>
-                          <a href="/cart" className="block w-full bg-[#68D237] text-white py-2 rounded-lg font-medium hover:bg-green-600 transition text-center">
-                            View Cart
-                          </a>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
+                </div>
+              </a>
+
             </div>
           </div>
         </div>

@@ -13,6 +13,13 @@ export default function HeroBanner() {
     setCurrentWatchIndex((prev) => (prev + 1) % watchImages.length);
   };
 
+  const scrollToTechnology = () => {
+    const techSection = document.getElementById('technology-section');
+    if (techSection) {
+      techSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="space-y-3 md:space-y-4">
       {/* Mobile stacked view */}
@@ -53,7 +60,10 @@ export default function HeroBanner() {
             </div>
 
             <div className="mt-6 flex items-center justify-between">
-              <button className="bg-[#64c933] hover:bg-[#55b528] text-white px-5 py-2 rounded-md text-sm font-medium transition">
+              <button 
+                onClick={scrollToTechnology}
+                className="bg-[#64c933] hover:bg-[#55b528] text-white px-5 py-2 rounded-md text-sm font-medium transition"
+              >
                 Order Now
               </button>
               <div className="flex items-center gap-2 text-gray-200 text-xs">
@@ -79,7 +89,10 @@ export default function HeroBanner() {
               <div className="text-lg font-semibold leading-snug">Supper Sale<br />Laptop Gaming</div>
             </div>
             <div className="mt-4">
-              <button className="bg-[#64c933] hover:bg-[#55b528] text-white px-5 py-2 rounded-md text-sm font-medium transition">
+              <button 
+                onClick={scrollToTechnology}
+                className="bg-[#64c933] hover:bg-[#55b528] text-white px-5 py-2 rounded-md text-sm font-medium transition"
+              >
                 Order Now
               </button>
             </div>
@@ -198,7 +211,10 @@ export default function HeroBanner() {
                 <div className="text-3xl font-semibold leading-snug">Supper Sale<br />Laptop Gaming</div>
               </div>
               <div>
-                <button className="bg-[#64c933] hover:bg-[#55b528] text-white px-6 py-3 rounded-md text-sm font-medium transition">
+                <button 
+                  onClick={scrollToTechnology}
+                  className="bg-[#64c933] hover:bg-[#55b528] text-white px-6 py-3 rounded-md text-sm font-medium transition"
+                >
                   Order Now
                 </button>
               </div>
@@ -236,7 +252,10 @@ export default function HeroBanner() {
                 <div className="text-3xl font-semibold">ROSSINI</div>
               </div>
               <div className="flex items-center justify-between mt-8">
-                <button className="bg-[#64c933] hover:bg-[#55b528] text-white px-7 py-3 rounded-md text-sm font-medium transition">
+                <button 
+                  onClick={scrollToTechnology}
+                  className="bg-[#64c933] hover:bg-[#55b528] text-white px-7 py-3 rounded-md text-sm font-medium transition"
+                >
                   Buy Now
                 </button>
                 
